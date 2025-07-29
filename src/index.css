@@ -9,7 +9,8 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden; /* prevent scroll */
+  overflow-x: hidden;  /* prevent horizontal scroll */
+  overflow-y: auto;    /* allow vertical scroll */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -39,6 +40,8 @@ body.dark {
 /* App container: full height, column layout */
 .app-container {
   height: 100vh;
+  max-height: 100vh;    /* prevent exceeding viewport height */
+  overflow-y: auto;     /* allow vertical scroll if content too tall */
   padding: 20px;
   max-width: 1000px;
   margin: 0 auto;
@@ -238,7 +241,8 @@ body.light .controls select option {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow-x: auto;    /* allow horizontal scroll if needed */
+  overflow-y: visible;
   margin-top: 6px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgb(0 0 0 / 0.15);
