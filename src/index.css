@@ -1,13 +1,299 @@
-body {
+/* Reset and basics */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* prevent scroll */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+body.dark {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* Root color variables */
+:root {
+  --background-color-light: #f0f2f5;
+  --text-color-light: #1e1e2f;
+  --bar-color-light: #555555;
+  --highlight-color-light: #ff3860;
+
+  --background-color-dark: #121317;
+  --text-color-dark: #e2e2e8;
+  --bar-color-dark: #bbbbbb;
+  --highlight-color-dark: #ff5e7a;
+}
+
+/* App container: full height, column layout */
+.app-container {
+  height: 100vh;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+/* Top bar: title + theme switch side by side */
+.top-bar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.top-bar h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Theme toggle button */
+.toggle-theme-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  color: inherit;
+}
+
+.toggle-theme-btn:hover,
+.toggle-theme-btn:focus-visible {
+  background-color: currentColor;
+  color: var(--background-color-light);
+  outline: none;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* Controls */
+.controls {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Select styling */
+.controls select {
+  cursor: pointer;
+  min-width: 160px;
+  padding: 10px 36px 10px 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid currentColor;
+  background-color: transparent;
+  color: inherit;
+  appearance: none;
+  position: relative;
+  user-select: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 3px),
+    calc(100% - 15px) calc(50% - 3px);
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.controls select:hover:not(:disabled),
+.controls select:focus-visible:not(:disabled) {
+  background-color: currentColor;
+  color: var(--background-color-light);
+  outline: none;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.controls select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Option text color */
+body.dark .controls select,
+body.dark .controls select option {
+  color: var(--text-color-dark);
+  background-color: var(--background-color-dark);
+}
+body.light .controls select,
+body.light .controls select option {
+  color: var(--text-color-light);
+  background-color: var(--background-color-light);
+}
+
+/* Buttons */
+.controls button {
+  min-width: 90px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 2px solid currentColor;
+  background-color: transparent;
+  color: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.controls button:hover:not(:disabled),
+.controls button:focus-visible:not(:disabled) {
+  background-color: currentColor;
+  color: var(--background-color-light);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Speed slider */
+.speed-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 180px;
+  color: inherit;
+  user-select: none;
+}
+
+.speed-label input[type='range'] {
+  cursor: pointer;
+  width: 150px;
+  height: 6px;
+  -webkit-appearance: none;
+  background: #ccc;
+  border-radius: 4px;
+  accent-color: currentColor;
+}
+
+.speed-label input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: currentColor;
+  cursor: pointer;
+  border: none;
+  margin-top: -6px;
+}
+
+.speed-label input[type='range']:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  outline: none;
+}
+
+.speed-label input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: currentColor;
+  border: none;
+  cursor: pointer;
+}
+
+.speed-label input[type='range']:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  outline: none;
+}
+
+/* Canvas wrapper */
+.canvas-wrapper {
+  width: 100%;
+  max-width: 900px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.15);
+  background-color: var(--background-color-light);
+}
+
+body.dark .canvas-wrapper {
+  background-color: var(--background-color-dark);
+}
+
+/* Canvas element */
+canvas {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Info box */
+.algo-info {
+  max-width: 720px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center;
+  font-size: 0.95rem;
+  color: inherit;
+}
+body.light .algo-info {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .controls {
+    flex-direction: column;
+  }
+  .controls select,
+  .controls button,
+  .speed-label {
+    min-width: 100%;
+    text-align: center;
+  }
+  .speed-label input[type='range'] {
+    width: 100%;
+  }
+}
+
+/* Accessibility focus */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid #2196f3;
+  outline-offset: 2px;
+  outline-style: solid;
 }
