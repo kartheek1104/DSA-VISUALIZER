@@ -58,7 +58,7 @@ cd dsa-visualizer
 ```bash
 npm install
 ```
-# or
+or
 ```bash
 yarn install
 ```
@@ -67,7 +67,7 @@ yarn install
 ``` bash
 npm start
 ```
-# or
+or
 ```bash
 yarn start
 ```
@@ -77,7 +77,7 @@ Build for Production
  ```bash
 npm run build
 ```
-# or
+or
 ```bash
 yarn build
 ```
