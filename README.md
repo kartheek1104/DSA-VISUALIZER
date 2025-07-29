@@ -45,7 +45,7 @@ A React-based interactive web application that visualizes various sorting algori
 - Node.js (v14+ recommended)
 - npm or yarn package manager
 
-### Installation
+# Installation
 
 1. Clone the repository:
 
