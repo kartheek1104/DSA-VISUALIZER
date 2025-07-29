@@ -53,7 +53,7 @@ A React-based interactive web application that visualizes various sorting algori
 git clone https://github.com/your-username/dsa-visualizer.git
 cd dsa-visualizer
 ```
-#Install dependencies:
+# Install dependencies:
 
 ```bash
 npm install
