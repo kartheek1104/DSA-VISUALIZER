@@ -1,5 +1,7 @@
 # Sorting Algorithm Visualizer
 
+Check out the live demo at [here](datastructures-visualizer.vercel.app).
+
 A React-based interactive web application that visualizes various sorting algorithms in action. This project helps users understand how different sorting algorithms work by animating the sorting process with customizable speed and array size.
 
 ## Features
